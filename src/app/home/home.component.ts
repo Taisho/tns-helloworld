@@ -1,6 +1,8 @@
 import { Page } from "ui/page";
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { DatabaseService } from '../database/sqlite.service';
+import { RadSideDrawerComponent, SideDrawerType } from "nativescript-ui-sidedrawer/angular";
+import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import * as pageModule from "tns-core-modules/ui/page"
 
 var view = require("ui/core/view");
@@ -17,11 +19,25 @@ export class HomeComponent implements OnInit {
     public sideDrawer;
     //@ViewChild('page') public page;
     //@ViewChild('sideDrawer') public sideDrawer;
+    @ViewChild(RadSideDrawerComponent) public drawerComponent: RadSideDrawerComponent;
+    private drawer: RadSideDrawer;
+
+    public items = [
+        { title: "Title1"},
+        { title: "Title2"},
+    ];
 
     constructor(
-        private db: DatabaseService
+        private db: DatabaseService,
+        private _changeDetectionRef: ChangeDetectorRef,
     ) {
     }
+
+     ngAfterViewInit() {
+         this.drawer = this.drawerComponent.sideDrawer;
+         this._changeDetectionRef.detectChanges();
+     }
+
 
     ngOnInit(): void {
 
@@ -42,15 +58,11 @@ export class HomeComponent implements OnInit {
 
     }
 
+    public onNavigationItemTap(event: any) {
+        console.log("navigated");
+    }
+
     public toggleDrawer(args: any) {
-        let sideDrawer = eval('getElementById("sideDrawer")');
-
-        let s = view.getViewById(sideDrawer.page, 'sideDrawer');
-        for(let k in s) {
-            console.log('sideDrawer:      ' + k);
-        }
-
-        console.log('sideDrawer: '+s.page);
-        s.toggleDrawerState();
+        this.drawer.toggleDrawerState();
     }
 }

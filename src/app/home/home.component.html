@@ -1,32 +1,23 @@
-<Page #page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:sd="nativescript-ui-sidedrawer" loaded="pageLoaded">
+<ActionBar [title]="Wow">
+     <NavigationButton text="Back" icon="res://ic_arrow_back_black_24dp" (tap)="onNavigationButtonTap()" [visibility]="hasBack ? 'visible' : 'collapsed'"></NavigationButton>
+</ActionBar>
+<RadSideDrawer>
+     <GridLayout tkDrawerContent rows="auto, *" class="root-drawer-content">
+         <StackLayout>
+             <Label [text]="Wow" class="h1 text-center"></Label>
+         </StackLayout>
+         <ListView row="1" [items]="items" (itemTap)="onNavigationItemTap($event)" class="root-drawer-content">
+             <ng-template let-item="item">
+                 <StackLayout class="root-item-stack-layout">
+                     <Label [text]="item.title" textWrap="true" class="btn btn-primary btn-active"></Label>
+                     <StackLayout height="1" class="root-drawer-content"></StackLayout>
+                 </StackLayout>
+             </ng-template>
+         </ListView>
+     </GridLayout>
 
-<ActionBar title="RadSideDrawer Demo" class="action-bar"></ActionBar>
+     <GridLayout tkMainContent>
+       <Button (tap)="toggleDrawer()"></Button>
+     </GridLayout>
 
-    <sd:RadSideDrawer id="sideDrawer" #sideDrawer>
-
-        <!-- side drawer content -->
-        <sd:RadSideDrawer.drawerContent>
-            <StackLayout class="sidedrawer-left">
-                <StackLayout class="sidedrawer-header">
-                    <Label text="Hello RadSideDrawer!" class="sidedrawer-header-brand" />
-                </StackLayout>
-                <StackLayout class="sidedrawer-content">
-                    <Label text="Home" class="sidedrawer-list-item-text" />
-                    <Label text="Basics" class="sidedrawer-list-item-text" />
-                    <Label text="Options" class="sidedrawer-list-item-text" />
-                    <Label text="Help" class="sidedrawer-list-item-text" />
-                    <Label text="Advanced" class="sidedrawer-list-item-text" />
-                </StackLayout>
-            </StackLayout>
-        </sd:RadSideDrawer.drawerContent>
-
-        <!-- The main content -->
-        <sd:RadSideDrawer.mainContent>
-            <StackLayout>
-                <Button text="Toggle Drawer" class="btn btn-primary" (tap)="toggleDrawer($event)" />
-            </StackLayout>
-        </sd:RadSideDrawer.mainContent>
-
-    </sd:RadSideDrawer>
-
-</Page>
+ </RadSideDrawer>
