@@ -1,9 +1,11 @@
-<ActionBar [title]="Wow">
-     <NavigationButton text="Back" icon="res://ic_arrow_back_black_24dp" (tap)="onNavigationButtonTap()" [visibility]="hasBack ? 'visible' : 'collapsed'"></NavigationButton>
+<ActionBar title="">
+    <!-- <ActionItem text="Menu" position="left" (tap)="toggleDrawer()"> </ActionItem> -->
+    <NavigationButton text="Menu" android.systemIcon="ic_menu_more" (tap)="toggleDrawer()"></NavigationButton>
 </ActionBar>
+
 <RadSideDrawer>
      <GridLayout tkDrawerContent rows="auto, *" class="root-drawer-content">
-         <StackLayout>
+         <StackLayout row="0" col="0">
              <Label [text]="Wow" class="h1 text-center"></Label>
          </StackLayout>
          <ListView row="1" [items]="items" (itemTap)="onNavigationItemTap($event)" class="root-drawer-content">
@@ -16,8 +18,8 @@
          </ListView>
      </GridLayout>
 
-     <GridLayout tkMainContent>
-       <Button (tap)="toggleDrawer()"></Button>
+     <GridLayout tkMainContent rows="auto, *" columns="{{getGridColumns()}}" class="scheduleTable">
+     <Label text="{{wday}} {{col}}" row="0" col="{{ col }}" *ngFor="let wday of weekDays; let col = index;"></Label>
      </GridLayout>
 
  </RadSideDrawer>

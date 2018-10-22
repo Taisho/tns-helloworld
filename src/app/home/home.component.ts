@@ -11,7 +11,8 @@ var frame = require("ui/frame");
 @Component({
     selector: "Home",
     moduleId: module.id,
-    templateUrl: "./home.component.html"
+    templateUrl: "./home.component.html",
+    styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
 
@@ -26,6 +27,17 @@ export class HomeComponent implements OnInit {
         { title: "Title1"},
         { title: "Title2"},
     ];
+
+    public weekDays = [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+    ];
+
 
     constructor(
         private db: DatabaseService,
@@ -64,5 +76,15 @@ export class HomeComponent implements OnInit {
 
     public toggleDrawer(args: any) {
         this.drawer.toggleDrawerState();
+    }
+
+    public getGridColumns() {
+        let str = '';
+        for(let i=0; i<this.weekDays.length; i++) {
+            str += 'auto,';
+        }
+        str = str.substr(0, str.length-1);
+
+        return str;
     }
 }
